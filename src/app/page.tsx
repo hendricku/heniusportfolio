@@ -124,7 +124,7 @@ export default function Home() {
               className="flex-1 text-center lg:text-left"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4">
-                I'm Hendrick Paul
+                I&apos;m Hendrick Paul
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
