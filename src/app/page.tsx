@@ -111,8 +111,8 @@ export default function Home() {
           </div>
 
           {/* Languages section */}
-          <div className="w-full mb-8">
-            <h3 className="text-left text-sm font-semibold mb-4">Languages</h3>
+          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
+            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Languages</h3>
             <div className="space-y-4">
               <AnimatedSkillBar skill="Tagalog" percentage={100} />
               <AnimatedSkillBar skill="English" percentage={90} />
@@ -121,8 +121,8 @@ export default function Home() {
           </div>
 
           {/* Skills section */}
-          <div className="w-full mb-8">
-            <h3 className="text-left text-sm font-semibold mb-4">Skills</h3>
+          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
+            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Skills</h3>
             <div className="space-y-4">
               <AnimatedSkillBar skill="HTML" percentage={90} />
               <AnimatedSkillBar skill="CSS" percentage={85} />
@@ -131,9 +131,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Extra Skills section with icons */}
-          <div className="w-full mb-8">
-            <h3 className="text-left text-sm font-semibold mb-4">Extra Skills</h3>
+          {/* Extra Skills section */}
+          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
+            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Extra Skills</h3>
             <div className="space-y-3">
               {[
                 { icon: "📸", skills: "Photography" },
@@ -145,7 +145,7 @@ export default function Home() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 * index }}
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors bg-white/80 p-2 rounded-lg"
                 >
                   <span className="w-5 h-5 flex items-center justify-center bg-[#FFA500]/10 rounded">
                     {item.icon}
@@ -254,6 +254,7 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
@@ -274,7 +275,7 @@ export default function Home() {
                 {
                   icon: "📸",
                   title: "Photography",
-                  description: "Landscape, Portrait, Event Photography",
+                  description: "Portrait, Product Photography",
                 }
               ].map((service, index) => (
                 <motion.div
@@ -282,13 +283,11 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 * index }}
-                  className="bg-white dark:bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all group"
+                  className="service-card p-6 rounded-xl shadow-sm hover:shadow-lg"
                 >
-                  <div className="w-12 h-12 bg-[#FFA500]/10 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <span className="text-2xl">{service.icon}</span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600 text-sm">{service.description}</p>
+                  <span className="text-4xl mb-4 block">{service.icon}</span>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                  <p className="text-gray-600">{service.description}</p>
                 </motion.div>
               ))}
             </div>
