@@ -1,6 +1,61 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+function ScrollToTop() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0,
+        scale: isVisible ? 1 : 0.5
+      }}
+      onClick={scrollToTop}
+      className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-[#FFA500] text-white shadow-lg
+                 hover:bg-[#FFA500]/90 transition-all duration-300"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+    >
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+      </svg>
+    </motion.button>
+  );
+}
 
 export default function Home() {
   return (
@@ -37,16 +92,16 @@ export default function Home() {
           </div>
 
           {/* Location */}
-          <p className="text-sm text-gray-600 mb-6">Manila, Philippines</p>
+          <p className="text-sm text-gray-600 mb-6">San Fernando La Union  Philippines</p>
 
           {/* Stats with updated styling */}
           <div className="grid grid-cols-2 gap-4 w-full mb-8">
             <div className="text-center">
-              <span className="block text-2xl font-bold text-[#FFA500]">24</span>
+              <span className="block text-2xl font-bold text-[#FFA500]">22</span>
               <span className="text-sm text-gray-600">Age</span>
             </div>
             <div className="text-center">
-              <span className="block text-2xl font-bold text-[#FFA500]">80</span>
+              <span className="block text-2xl font-bold text-[#FFA500]">4</span>
               <span className="text-sm text-gray-600">Projects</span>
             </div>
           </div>
@@ -68,8 +123,7 @@ export default function Home() {
               <AnimatedSkillBar skill="HTML" percentage={90} />
               <AnimatedSkillBar skill="CSS" percentage={85} />
               <AnimatedSkillBar skill="JS" percentage={80} />
-              <AnimatedSkillBar skill="PHP" percentage={75} />
-              <AnimatedSkillBar skill="WordPress" percentage={85} />
+              <AnimatedSkillBar skill="NextJS" percentage={90} /> 
             </div>
           </div>
 
@@ -99,7 +153,9 @@ export default function Home() {
           </div>
 
           {/* Download CV button */}
-          <motion.button
+          <motion.a
+            href="/HendrickResume.pdf"
+            download="HendrickResume.pdf"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="w-full bg-[#FFA500] text-white py-3 rounded-lg font-medium 
@@ -109,7 +165,7 @@ export default function Home() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
-          </motion.button>
+          </motion.a>
         </div>
       </motion.aside>
 
@@ -148,8 +204,9 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                Passionate about creating elegant and performant web experiences. 
-                Specializing in modern JavaScript frameworks and responsive design.
+                A skilled frontend developer with a passion for crafting intuitive user interfaces. 
+                Focused on creating responsive, accessible, and high-performance web applications 
+                using modern technologies.
               </motion.p>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -187,8 +244,8 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">My Services</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Amet Minim Mollit Non Deserunt Ullamco Est Sit Aliqua Dolor.
-              Do Amet Sint, Velit Officia Consequat Duis Enim Velit Mollit.
+              Offering a range of digital services from web development to multimedia solutions. 
+              Each service is delivered with attention to detail and commitment to quality.
             </p>
           </motion.div>
 
@@ -197,33 +254,23 @@ export default function Home() {
               {
                 icon: "💻",
                 title: "Web Development",
-                description: "Blog, E-Commerce",
+                description: "Blog, E-Commerce, Custom Websites",
               },
               {
                 icon: "🎨",
                 title: "UI/UX Design",
-                description: "Mobile App, Website Design",
+                description: "Website Design, Interface Layout",
               },
               {
                 icon: "🎤",
-                title: "Sound Design",
-                description: "Voice Over, Beat Making",
-              },
-              {
-                icon: "📱",
-                title: "Game Design",
-                description: "Character Design, Props & Objects",
+                title: "Sound System",
+                description: "Sound System Operation",
               },
               {
                 icon: "📸",
                 title: "Photography",
-                description: "Portrait, Product Photography",
-              },
-              {
-                icon: "📢",
-                title: "Advertising",
-                description: "Lorem ipsum Dolor Sit Amet, Consectetur Adipiscing Elit",
-              },
+                description: "Landscape, Portrait, Event Photography",
+              }
             ].map((service, index) => (
               <motion.div
                 key={service.title}
@@ -355,6 +402,127 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
+
+        {/* Portfolio Section - Added section */}
+        <section className="max-w-7xl mx-auto mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Portfolio</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Showcasing selected projects that demonstrate my technical skills and creative 
+              approach to solving real-world challenges through web development.
+            </p>
+          </motion.div>
+
+          {/* Portfolio Categories */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {["All Categories", "UI Design", "Web Development", "Full Stack", "Frontend"].map((category) => (
+              <button
+                key={category}
+                className={`px-4 py-2 text-sm rounded-full transition-all
+                  ${category === "All Categories" 
+                    ? "bg-[#FFA500] text-white" 
+                    : "text-gray-600 hover:bg-gray-100"}`}
+
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Portfolio Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Jialu Global",
+                category: "Frontend Development", // Changed from Web Templates
+                image: "/project1.png",
+                link: "https://jialugloball.vercel.app",
+                description: "Custom-built church website for Jesus is Alive Church homebase. Featuring modern design, responsive layout, and optimized performance.",
+                techStack: ["Next.js", "Tailwind CSS"]
+              },
+              {
+                title: "Fomo Frog",
+                category: "Frontend Development", // Changed from Web Templates
+                image: "/project2.png",
+                link: "https://www.memelounge.xyz",
+                description: "Custom cryptocurrency platform with modern UI components and interactive features.",
+                techStack: ["Next.js", "Tailwind CSS"]
+              },
+              {
+                title: "DOST Portal",
+                category: "Full Stack Development", // Updated category
+                image: "/dost.png",
+                link: "#",
+                description: "In-progress portal development for DOST with focus on user interface and functionality.",
+                techStack: ["HTML", "CSS", "JavaScript"],
+                status: "in-progress"
+              }
+            ].map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 * index }}
+                className={`group relative bg-white rounded-xl overflow-hidden shadow-sm 
+                            ${project.status !== "in-progress" ? "hover:shadow-lg" : "cursor-not-allowed"} 
+                            transition-all`}
+              >
+                <div className="aspect-w-16 aspect-h-12 overflow-hidden relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={600}
+                    height={450}
+                    className={`object-cover ${project.status !== "in-progress" ? "group-hover:scale-105" : "opacity-75"} 
+                               transition-transform duration-300`}
+                  />
+                  {project.status === "in-progress" && (
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="px-3 py-1 bg-yellow-500 text-white text-xs rounded-full flex items-center gap-2">
+                        <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                        In Progress
+                      </span>
+                    </div>
+                  )}
+                  {project.status !== "in-progress" && (
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+                      <span className="text-white font-medium mb-2">View Project</span>
+                      <p className="text-white/80 text-sm text-center mb-2">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {project.techStack.map((tech) => (
+                          <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-xs text-white">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-gray-900">{project.title}</h3>
+                    {project.status === "in-progress" && (
+                      <span className="text-xs text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full">
+                        In Development
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600">{project.category}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <ScrollToTop />
       </main>
     </div>
   );
