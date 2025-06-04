@@ -28,32 +28,34 @@ export default function Contact() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center mb-12"
+        className="bg-white rounded-xl p-8 shadow-sm" // Added white background and shadow
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Feel free to reach out for collaborations or just a friendly hello
-        </p>
-      </motion.div>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Get in Touch</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Feel free to reach out for collaborations or just a friendly hello
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {contactInfo.map((contact) => (
-          <motion.a
-            key={contact.label}
-            href={contact.href}
-            target={contact.label === "Facebook" ? "_blank" : "_self"}
-            rel={contact.label === "Facebook" ? "noopener noreferrer" : ""}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all text-center"
-          >
-            <span className="text-3xl mb-4 block">{contact.icon}</span>
-            <h3 className="font-medium text-gray-900 mb-2">{contact.label}</h3>
-            <p className="text-gray-600">{contact.value}</p>
-          </motion.a>
-        ))}
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {contactInfo.map((contact) => (
+            <motion.a
+              key={contact.label}
+              href={contact.href}
+              target={contact.label === "Facebook" ? "_blank" : "_self"}
+              rel={contact.label === "Facebook" ? "noopener noreferrer" : ""}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all text-center"
+            >
+              <span className="text-3xl mb-4 block">{contact.icon}</span>
+              <h3 className="font-medium text-gray-900 mb-2">{contact.label}</h3>
+              <p className="text-gray-600">{contact.value}</p>
+            </motion.a>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

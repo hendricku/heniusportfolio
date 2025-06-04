@@ -8,10 +8,11 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary: #FFA500;
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
+  background-color: white;
   color: var(--foreground);
   font-family: var(--font-geist-sans), 'Inter', sans-serif;
 }
@@ -22,6 +23,12 @@ body {
     linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
   background-size: 24px 24px;
   opacity: 0.5;
+}
+
+.grid-bg {
+  background-image: linear-gradient(#E5E7EB 1px, transparent 1px),
+    linear-gradient(to right, #E5E7EB 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .skill-bar {
@@ -137,5 +144,8 @@ html {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+  body {
+    background-color: white;
   }
 }
