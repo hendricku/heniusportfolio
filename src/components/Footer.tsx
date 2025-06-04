@@ -1,4 +1,3 @@
-
 export default function Footer() {
   return (
     <footer className="w-full bg-white/95 backdrop-blur-lg border-t border-gray-100 py-6 mt-20">
