@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
 
 function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -579,6 +581,12 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Add Contact section */}
+        <Contact />
+        
+        {/* Add Footer */}
+        <Footer />
+        
         <ScrollToTop />
       </main>
     </div>
