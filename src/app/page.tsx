@@ -606,28 +606,3 @@ export default function Home() {
     </div>
   );
 }
-
-// Keep AnimatedSkillBar if used elsewhere in main content
-function AnimatedSkillBar({ skill, percentage, delay = 0 }: { skill: string; percentage: number; delay?: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay }}
-      className="group"
-    >
-      <div className="flex justify-between text-xs md:text-sm mb-1">
-        <span className="text-gray-700 font-medium">{skill}</span>
-        <span className="text-gray-500">{percentage}%</span>
-      </div>
-      <div className="h-1.5 md:h-2 bg-gray-100 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 1, delay: delay + 0.3, ease: "easeOut" }}
-          className="h-full bg-[#FFA500] rounded-full group-hover:brightness-110 transition-all"
-        />
-      </div>
-    </motion.div>
-  );
-}
