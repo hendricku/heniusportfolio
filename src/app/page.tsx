@@ -148,7 +148,7 @@ export default function Home() {
               className="flex-1 text-center lg:text-left"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 leading-tight">
-                I'm Hendrick Paul<br />
+                I&apos;m Hendrick Paul<br />
                 Llamas Castro<br />
                 <span className="text-[#FFA500]">Front-end</span><br />
                 Developer
