@@ -457,15 +457,15 @@ export default function Home() {
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean's List AY 2021-2022 2nd Semester</span>
+                <span>Dean&apos;s List AY 2021-2022 2nd Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean's List AY 2022-2023 1st Semester</span>
+                <span>Dean&apos;s List AY 2022-2023 1st Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean's List AY 2023-2024 2nd Semester</span>
+                <span>Dean&apos;s List AY 2023-2024 2nd Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
