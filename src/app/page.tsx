@@ -308,15 +308,23 @@ export default function Home() {
                     className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12 border-b border-gray-100 last:border-0 last:pb-0"
                   >
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">{edu.level}</h3>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="px-3 py-1 text-xs bg-[#FFA500] text-white rounded-full">
+                      <h3 className="text-lg font-semibold text-gray-900">{edu.level}</h3>
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[#FFA500] text-white rounded-full shadow-sm">
                           {edu.date}
                         </span>
+                        {edu.level === "Tertiary" && (
+                          <span className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-green-500 text-white rounded-full shadow-sm">
+                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Graduated
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">{edu.school}</h4>
+                      <h4 className="font-semibold text-gray-900 mb-2">{edu.school}</h4>
                       {edu.degree && (
                         <p className="text-gray-600 text-sm mb-2">{edu.degree}</p>
                       )}

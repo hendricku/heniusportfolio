@@ -47,7 +47,7 @@ export default function Sidebar() {
 
       {/* Languages */}
       <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Languages</h3>
+        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Spoken Languages</h3>
         <div className="space-y-4">
           <AnimatedSkillBar skill="Tagalog" percentage={100} />
           <AnimatedSkillBar skill="English" percentage={90} />
