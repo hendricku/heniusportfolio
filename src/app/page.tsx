@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-
+import gsap from "gsap";
+import Sidebar from "@/components/Sidebar";
 
 function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,119 +62,82 @@ function ScrollToTop() {
 }
 
 export default function Home() {
+  // GSAP animation for seminars & awards
+  const seminarsRef = useRef<HTMLDivElement>(null);
+  const awardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (seminarsRef.current) {
+      gsap.fromTo(
+        seminarsRef.current.querySelectorAll(".seminar-item"),
+        { opacity: 0, x: -40 },
+        { opacity: 1, x: 0, stagger: 0.15, duration: 0.7, ease: "power2.out" }
+      );
+    }
+    if (awardsRef.current) {
+      gsap.fromTo(
+        awardsRef.current.querySelectorAll(".award-item"),
+        { opacity: 0, x: 40 },
+        { opacity: 1, x: 0, stagger: 0.15, duration: 0.7, ease: "power2.out", delay: 0.5 }
+      );
+    }
+  }, []);
+
+  // Add this state for filtering
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+
+  // Project data
+  const projects = [
+    {
+      title: "Jialu Global",
+      category: "Frontend Development",
+      image: "/project1.png",
+      link: "https://jialugloball.vercel.app",
+      description: "Custom-built church website for Jesus is Alive Church homebase. Featuring modern design, responsive layout, and optimized performance.",
+      techStack: ["Next.js", "Tailwind CSS"]
+    },
+    {
+      title: "Fomo Frog",
+      category: "Frontend Development",
+      image: "/project2.png",
+      link: "https://www.memelounge.xyz",
+      description: "Custom cryptocurrency platform with modern UI components and interactive features.",
+      techStack: ["Next.js", "Tailwind CSS ","PostCss"]
+    },
+    {
+      title: "DOST Portal",
+      category: "Full Stack Development",
+      image: "/dost.png",
+      link: "#",
+      description: "In-progress portal development for DOST with focus on user interface and functionality.",
+      techStack: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
+      status: "in-progress"
+    },
+    {
+      title: "FiLO",
+      category: "Full Stack Development",
+      image: "/filo.png",
+      link: "#",
+      description: "It's A System for Disbursement of Financial Assistance to Local Government Units Dost Region 1 -- For Financial Assistance and for budgeting monitoring.",
+      techStack: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
+      status: "in-progress"
+    }
+  ];
+
+  // Filter logic
+  const filteredProjects = projects.filter(project => {
+    if (selectedCategory === "All Categories") return true;
+    if (selectedCategory === "Front End") return project.category === "Frontend Development";
+    if (selectedCategory === "Full Stack") return project.category === "Full Stack Development";
+    return false;
+  });
+
   return (
-    // Add grid-bg class and keep the white background for content
     <div className="grid-bg flex flex-col lg:flex-row relative z-10">
-      {/* Left Sidebar - Keep white background */}
-      <motion.aside
-        initial={{ x: -300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full lg:w-[300px] min-h-screen bg-white/95 backdrop-blur-lg border-r border-gray-100 
-                   p-8 lg:fixed relative shadow-md overflow-y-auto scrollbar-hide"
-        style={{ maxHeight: '100vh' }}
-      >
-        <div className="flex flex-col items-center text-center">
-          {/* Profile Image */}
-          <div className="w-24 h-24 rounded-full bg-white p-1 ring-2 ring-gray-100 overflow-hidden mb-4">
-            <Image
-              src="/me.png"
-              alt="Profile"
-              width={96}
-              height={96}
-              className="rounded-full object-cover"
-            />
-          </div>
+      {/* Sidebar as a component */}
+      <Sidebar />
 
-          {/* Title */}
-          <h2 className="text-lg font-medium text-gray-900">Front-End Developer</h2>
-
-          {/* Status Pills */}
-          <div className="flex gap-1.5 my-4">
-            <span className="px-3 py-1 text-xs bg-[#FFA500] text-white rounded-full">PHP</span>
-            <span className="px-3 py-1 text-xs bg-blue-500 text-white rounded-full">Available</span>
-            <span className="px-3 py-1 text-xs bg-gray-100 text-gray-800 rounded-full">Freelance</span>
-          </div>
-
-          {/* Location */}
-          <p className="text-sm text-gray-600 mb-6">San Fernando La Union  Philippines</p>
-
-          {/* Stats with updated styling */}
-          <div className="grid grid-cols-2 gap-4 w-full mb-8">
-            <div className="text-center">
-              <span className="block text-2xl font-bold text-[#FFA500]">22</span>
-              <span className="text-sm text-gray-600">Age</span>
-            </div>
-            <div className="text-center">
-              <span className="block text-2xl font-bold text-[#FFA500]">4</span>
-              <span className="text-sm text-gray-600">Projects</span>
-            </div>
-          </div>
-
-          {/* Languages section */}
-          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Languages</h3>
-            <div className="space-y-4">
-              <AnimatedSkillBar skill="Tagalog" percentage={100} />
-              <AnimatedSkillBar skill="English" percentage={90} />
-              <AnimatedSkillBar skill="Ilocano" percentage={10} />
-            </div>
-          </div>
-
-          {/* Skills section */}
-          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Skills</h3>
-            <div className="space-y-4">
-              <AnimatedSkillBar skill="HTML" percentage={90} />
-              <AnimatedSkillBar skill="CSS" percentage={85} />
-              <AnimatedSkillBar skill="JS" percentage={80} />
-              <AnimatedSkillBar skill="NextJS" percentage={90} /> 
-            </div>
-          </div>
-
-          {/* Extra Skills section */}
-          <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-            <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Extra Skills</h3>
-            <div className="space-y-3">
-              {[
-                { icon: "📸", skills: "Photography" },
-                { icon: "🎨", skills: "Photo Edit" },
-                { icon: "🎵", skills: "Sound System" }
-              ].map((item, index) => (
-                <motion.div
-                  key={item.skills}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * index }}
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors bg-white/80 p-2 rounded-lg"
-                >
-                  <span className="w-5 h-5 flex items-center justify-center bg-[#FFA500]/10 rounded">
-                    {item.icon}
-                  </span>
-                  <span>{item.skills}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Download CV button */}
-          <motion.a
-            href="/HendrickResume.pdf"
-            download="HendrickResume.pdf"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-[#FFA500] text-white py-3 rounded-lg font-medium 
-                       hover:shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            <span>DOWNLOAD CV</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.a>
-        </div>
-      </motion.aside>
-
-      {/* Main Content - Keep white background for cards and sections */}
+      {/* Main Content */}
       <main className="w-full lg:ml-[300px] p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-24">
         <section className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-12">
@@ -183,24 +147,11 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="flex-1 text-center lg:text-left"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4">
-                I&apos;m Hendrick Paul
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="block mt-2"
-                >
-                  Llamas Castro
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="block mt-2"
-                >
-                  <span className="text-[#FFA500]">Front-end</span> Developer
-                </motion.span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 leading-tight">
+                I&apos;m Hendrick Paul<br />
+                Llamas Castro<br />
+                <span className="text-[#FFA500]">Front-end</span><br />
+                Developer
               </h1>
               <motion.p
                 className="text-base md:text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
@@ -217,7 +168,7 @@ export default function Home() {
                 whileTap={{ scale: 0.98 }}
                 className="bg-[#FFA500] text-white px-8 md:px-10 py-3 md:py-4 rounded-full font-medium hover:shadow-lg transition-all"
               >
-                HIRE ME
+                <a href="mailto:hendrickcastro017.com">HIRE ME</a>
               </motion.button>
             </motion.div>
             <motion.div
@@ -228,7 +179,7 @@ export default function Home() {
             >
               <div className="absolute -inset-4 bg-[#FFA500]/10 rounded-2xl blur-2xl" />
               <Image
-                src="/me.png"
+                src="/mee.png"
                 alt="Profile"
                 width={600}
                 height={700}
@@ -236,6 +187,29 @@ export default function Home() {
               />
             </motion.div>
           </div>
+        </section>
+
+        {/* Massive Fresh Graduate Banner */}
+        <section className="max-w-7xl mx-auto mt-20 flex justify-center items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "backOut" }}
+            className="w-full"
+          >
+            <h1
+              className="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#FFA500] drop-shadow-lg uppercase"
+              style={{
+                letterSpacing: "0.05em",
+                lineHeight: 1.1,
+              }}
+            >
+              Fresh Graduate<br />
+              <span className="text-gray-900 block mt-2 text-2xl md:text-4xl font-bold tracking-wide">
+                Batch 2024–2025 &middot; Lorma Colleges
+              </span>
+            </h1>
+          </motion.div>
         </section>
 
         {/* My Services Section - Added section */}
@@ -408,6 +382,103 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* Seminars and Awards Section - Added section */}
+        <section className="max-w-7xl mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Seminars Attended */}
+          <motion.div
+            ref={seminarsRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="bg-white rounded-xl p-8 shadow-sm"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#FFA500] flex items-center gap-2">
+              <span>🎓</span> Seminars Attended
+            </h2>
+            <ul className="space-y-3 list-disc list-inside">
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>Hackathon Seminar in Banko Central San Fernando La Union | 2017</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>Y4IT Summit Seminar | 2024</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>National Conference on Computing Education and Business (NCCEB) | 2024</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>The Tech Talk Seminar | 2023</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>AI 101: BETTER UNDERSTANDING OF ARTIFICIAL INTELLIGENCE</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>Pytalks (2022) Webinar</span>
+              </li>
+              <li className="seminar-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">•</span>
+                <span>Events Management System and Mobile App Webinar</span>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Awards/Recognitions */}
+          <motion.div
+            ref={awardsRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white rounded-xl p-8 shadow-sm"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#FFA500] flex items-center gap-2">
+              <span>🏆</span> Awards & Recognitions
+            </h2>
+            <ul className="space-y-3 list-disc list-inside">
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Recognition of CCSE SBO Officer 2022-2023</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Recognition of CCSE SBO Officer 2023-2024</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Dean's List AY 2021-2022 2nd Semester</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Dean's List AY 2022-2023 1st Semester</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Dean's List AY 2023-2024 2nd Semester</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Robotics 2nd Place</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Click Creative Photography Club President -2025</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>Overall Head at the Global Conference on Robotics and Artificial Intelligence Technologies</span>
+              </li>
+              <li className="award-item text-gray-700 flex items-start gap-2">
+                <span className="text-[#FFA500] mt-1">★</span>
+                <span>First Place Research Presentation National Conference on Computing Education and Business (NCCEB) | 2024</span>
+              </li>
+            </ul>
+          </motion.div>
+        </section>
+
         {/* Portfolio Section - Added section */}
         <section className="max-w-7xl mx-auto mt-20">
           <motion.div
@@ -426,11 +497,12 @@ export default function Home() {
 
             {/* Portfolio Categories */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {["All Categories", "UI Design", "Web Development", "Full Stack", "Frontend"].map((category) => (
+              {["All Categories", "Front End", "Full Stack"].map((category) => (
                 <button
                   key={category}
+                  onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 text-sm rounded-full transition-all
-                    ${category === "All Categories" 
+                    ${selectedCategory === category 
                       ? "bg-[#FFA500] text-white" 
                       : "text-gray-600 hover:bg-gray-100"}`}
 
@@ -442,33 +514,7 @@ export default function Home() {
 
             {/* Portfolio Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Jialu Global",
-                  category: "Frontend Development", // Changed from Web Templates
-                  image: "/project1.png",
-                  link: "https://jialugloball.vercel.app",
-                  description: "Custom-built church website for Jesus is Alive Church homebase. Featuring modern design, responsive layout, and optimized performance.",
-                  techStack: ["Next.js", "Tailwind CSS"]
-                },
-                {
-                  title: "Fomo Frog",
-                  category: "Frontend Development", // Changed from Web Templates
-                  image: "/project2.png",
-                  link: "https://www.memelounge.xyz",
-                  description: "Custom cryptocurrency platform with modern UI components and interactive features.",
-                  techStack: ["Next.js", "Tailwind CSS"]
-                },
-                {
-                  title: "DOST Portal",
-                  category: "Full Stack Development", // Updated category
-                  image: "/dost.png",
-                  link: "#",
-                  description: "In-progress portal development for DOST with focus on user interface and functionality.",
-                  techStack: ["HTML", "CSS", "JavaScript"],
-                  status: "in-progress"
-                }
-              ].map((project, index) => (
+              {filteredProjects.map((project, index) =>
                 project.status === "in-progress" ? (
                   <motion.div
                     key={project.title}
@@ -483,42 +529,24 @@ export default function Home() {
                         alt={project.title}
                         width={600}
                         height={450}
-                        className={`object-cover ${project.status !== "in-progress" ? "group-hover:scale-105" : "opacity-75"} 
-                                   transition-transform duration-300`}
+                        className={`object-cover opacity-75 transition-transform duration-300`}
                       />
-                      {project.status === "in-progress" && (
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <span className="px-3 py-1 bg-yellow-500 text-white text-xs rounded-full flex items-center gap-2">
-                            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                            </svg>
-                            In Progress
-                          </span>
-                        </div>
-                      )}
-                      {project.status !== "in-progress" && (
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
-                          <span className="text-white font-medium mb-2">View Project</span>
-                          <p className="text-white/80 text-sm text-center mb-2">{project.description}</p>
-                          <div className="flex flex-wrap gap-2 justify-center">
-                            {project.techStack.map((tech) => (
-                              <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-xs text-white">
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <span className="px-3 py-1 bg-yellow-500 text-white text-xs rounded-full flex items-center gap-2">
+                          <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                          </svg>
+                          In Progress
+                        </span>
+                      </div>
                     </div>
                     <div className="p-4">
                       <div className="flex items-center justify-between">
                         <h3 className="font-semibold text-gray-900">{project.title}</h3>
-                        {project.status === "in-progress" && (
-                          <span className="text-xs text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full">
-                            In Development
-                          </span>
-                        )}
+                        <span className="text-xs text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full">
+                          In Development
+                        </span>
                       </div>
                       <p className="text-sm text-gray-600">{project.category}</p>
                     </div>
@@ -540,48 +568,29 @@ export default function Home() {
                         alt={project.title}
                         width={600}
                         height={450}
-                        className={`object-cover ${project.status !== "in-progress" ? "group-hover:scale-105" : "opacity-75"} 
-                                   transition-transform duration-300`}
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      {project.status === "in-progress" && (
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <span className="px-3 py-1 bg-yellow-500 text-white text-xs rounded-full flex items-center gap-2">
-                            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                            </svg>
-                            In Progress
-                          </span>
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+                        <span className="text-white font-medium mb-2">View Project</span>
+                        <p className="text-white/80 text-sm text-center mb-2">{project.description}</p>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {project.techStack.map((tech) => (
+                            <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-xs text-white">
+                              {tech}
+                            </span>
+                          ))}
                         </div>
-                      )}
-                      {project.status !== "in-progress" && (
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
-                          <span className="text-white font-medium mb-2">View Project</span>
-                          <p className="text-white/80 text-sm text-center mb-2">{project.description}</p>
-                          <div className="flex flex-wrap gap-2 justify-center">
-                            {project.techStack.map((tech) => (
-                              <span key={tech} className="px-2 py-1 bg-white/20 rounded-full text-xs text-white">
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                      </div>
                     </div>
                     <div className="p-4">
                       <div className="flex items-center justify-between">
                         <h3 className="font-semibold text-gray-900">{project.title}</h3>
-                        {project.status === "in-progress" && (
-                          <span className="text-xs text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full">
-                            In Development
-                          </span>
-                        )}
                       </div>
                       <p className="text-sm text-gray-600">{project.category}</p>
                     </div>
                   </motion.a>
                 )
-              ))}
+              )}
             </div>
           </motion.div>
         </section>
@@ -598,6 +607,7 @@ export default function Home() {
   );
 }
 
+// Keep AnimatedSkillBar if used elsewhere in main content
 function AnimatedSkillBar({ skill, percentage, delay = 0 }: { skill: string; percentage: number; delay?: number }) {
   return (
     <motion.div
@@ -620,5 +630,4 @@ function AnimatedSkillBar({ skill, percentage, delay = 0 }: { skill: string; per
       </div>
     </motion.div>
   );
-
 }
