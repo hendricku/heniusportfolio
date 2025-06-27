@@ -8,7 +8,7 @@ export default function Sidebar() {
 
   // Sidebar content as a separate component for reuse
   const SidebarContent = (
-    <div className="flex flex-col items-center text-center"> {/* <-- MODIFIED */}
+    <div className="flex flex-col items-center text-center">
       {/* Profile Image */}
       <div className="w-24 h-24 rounded-full bg-white p-1 ring-2 ring-gray-100 overflow-hidden mb-4 mt-12 lg:mt-0 mx-auto">
         <Image
@@ -45,19 +45,9 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Languages */}
+      {/* Programming */} {/* <-- MODIFIED & MOVED */}
       <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Spoken Languages</h3>
-        <div className="space-y-4">
-          <AnimatedSkillBar skill="Tagalog" percentage={100} />
-          <AnimatedSkillBar skill="English" percentage={90} />
-          <AnimatedSkillBar skill="Ilocano" percentage={10} />
-        </div>
-      </div>
-
-      {/* Skills */}
-      <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Skills</h3>
+        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Programming</h3>
         <div className="space-y-4">
           <AnimatedSkillBar skill="HTML" percentage={90} />
           <AnimatedSkillBar skill="CSS" percentage={85} />
@@ -68,9 +58,9 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Extra Skills */}
+      {/* Technical Skills */} {/* <-- MODIFIED & MOVED */}
       <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Extra Skills</h3>
+        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Technical Skills</h3>
         <div className="space-y-3">
           {[
             { icon: "📸", skills: "Photography" },
@@ -90,6 +80,16 @@ export default function Sidebar() {
               <span>{item.skills}</span>
             </motion.div>
           ))}
+        </div>
+      </div>
+
+      {/* Languages */} {/* <-- MODIFIED & MOVED */}
+      <div className="w-full mb-8 bg-white rounded-xl p-6 shadow-sm">
+        <h3 className="text-left text-sm font-semibold mb-4 text-gray-900">Languages</h3>
+        <div className="space-y-4">
+          <AnimatedSkillBar skill="Tagalog" percentage={100} />
+          <AnimatedSkillBar skill="English" percentage={90} />
+          <AnimatedSkillBar skill="Ilocano" percentage={10} />
         </div>
       </div>
 

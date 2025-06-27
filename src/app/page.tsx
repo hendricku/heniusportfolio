@@ -148,7 +148,7 @@ export default function Home() {
               className="flex-1 text-center lg:text-left"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 leading-tight">
-                I&apos;m Hendrick Paul<br />
+                I'm Hendrick Paul<br />
                 Llamas Castro<br />
                 <span className="text-[#FFA500]">Front-end</span><br />
                 Developer
@@ -206,7 +206,7 @@ export default function Home() {
             >
               Fresh Graduate<br />
               <span className="text-gray-900 block mt-2 text-2xl md:text-4xl font-bold tracking-wide">
-                Batch 2024–2025 &middot; Lorma Colleges
+                Batch 2024–2025 · Lorma Colleges
               </span>
             </h1>
           </motion.div>
@@ -403,7 +403,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#FFA500] flex items-center gap-2">
               <span>🎓</span> Seminars Attended
             </h2>
-            <ul className="space-y-3 list-disc list-inside">
+            <ul className="space-y-3">
               <li className="seminar-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">•</span>
                 <span>Hackathon Seminar in Banko Central San Fernando La Union | 2017</span>
@@ -446,7 +446,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#FFA500] flex items-center gap-2">
               <span>🏆</span> Awards & Recognitions
             </h2>
-            <ul className="space-y-3 list-disc list-inside">
+            <ul className="space-y-3">
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
                 <span>Recognition of CCSE SBO Officer 2022-2023</span>
@@ -457,15 +457,15 @@ export default function Home() {
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean&apos;s List AY 2021-2022 2nd Semester</span>
+                <span>Dean's List AY 2021-2022 2nd Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean&apos;s List AY 2022-2023 1st Semester</span>
+                <span>Dean's List AY 2022-2023 1st Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Dean&apos;s List AY 2023-2024 2nd Semester</span>
+                <span>Dean's List AY 2023-2024 2nd Semester</span>
               </li>
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
@@ -475,10 +475,29 @@ export default function Home() {
                 <span className="text-[#FFA500] mt-1">★</span>
                 <span>Click Creative Photography Club President -2025</span>
               </li>
+              {/* ===== MODIFIED SECTION ===== */}
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
-                <span>Overall Head at the Global Conference on Robotics and Artificial Intelligence Technologies</span>
+                <a
+                  href="https://gcrait.lorma.edu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 hover:text-[#FFA500] transition-colors"
+                >
+                  <span>Overall Head at the Global Conference on Robotics and Artificial Intelligence Technologies</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100 transition-opacity"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </li>
+              {/* ============================ */}
               <li className="award-item text-gray-700 flex items-start gap-2">
                 <span className="text-[#FFA500] mt-1">★</span>
                 <span>First Place Research Presentation National Conference on Computing Education and Business (NCCEB) | 2024</span>
